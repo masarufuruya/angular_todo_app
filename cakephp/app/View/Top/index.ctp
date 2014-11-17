@@ -10,6 +10,8 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <?php echo $this->Html->css('habbit'); ?>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -20,36 +22,41 @@
     <?php echo $this->Html->script('index'); ?>
   </head>
   <body ng-app="HabbitApp">
-    <div ng-controller="HabbitListCtrl">
-      <h1>Habbit</h1>
-      <form ng-submit="addHabbit">
-        <div id="AddInputBox" class="form-group">
-          <div class="col-sm-10">
-            <input type="text"  ng-model="name" class="form-control" />
-          </div>
+    <div class="container">
+      <div ng-controller="HabbitListCtrl">
+        <div id="addForm" class="row">
+          <form ng-submit="addTodo()">
+            <div id="AddInputBox" class="form-group">
+              <div class="col-sm-10">
+                <input type="text"  ng-model="name" class="form-control" />
+              </div>
+            </div>
+          </form>
           <div class="col-sm-2">
-            <button ng-click="addHabbit()" class="btn btn-primary">追加</button>
+            <button ng-click="addTodo()" class="btn btn-primary">追加</button>
           </div>
         </div>
-      </form>
-      <div id="HabbitList">
-        <table class="table table-striped">
-            <tr>
-                <th></th>
-                <th>ToDo</th>
-            </tr>
-            <tr ng-repeat="todo in todos">
-                <td><input type="checkbox" ng-model="todo.done"></td>
-                <td ng-click="toCanEdit($index)">
-                  <span ng-model="todo.label" ng-show="todo.isEdit == false">{{todo.message}}</span>
-                  <input type="text" ng-model="todo.message" ng-mouseleave="toNotEdit($index)" ng-show="todo.isEdit == true" class="form-control">
-                </td>
-                <td>
-                  <button ng-click="deleteTodo($index)">削除</button>
-                </td>
-            </tr>
 
-        </table>
+        <div id="HabbitList">
+          <table class="table table-striped">
+              <tr>
+                  <th></th>
+                  <th>ToDo</th>
+                  <th></th>
+              </tr>
+              <tr ng-repeat="todo in todos">
+                  <td class="col-sm-1"><input type="checkbox" ng-model="todo.done" width="10px"></td>
+                  <td class="col-sm-10" ng-click="toCanEdit($index)">
+                    <span ng-model="todo.label" ng-show="todo.isEdit == false">{{todo.message}}</span>
+                    <input type="text" ng-blur="updateTodo($index)" ng-model="todo.message" ng-mouseleave="toNotEdit($index)" ng-show="todo.isEdit == true" class="form-control">
+                  </td>
+                  <td class="col-sm-1">
+                    <button class="btn btn-danger" ng-click="deleteTodo($index)">削除</button>
+                  </td>
+              </tr>
+
+          </table>
+        </div>
       </div>
     </div>
   </body>

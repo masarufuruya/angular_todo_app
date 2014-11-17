@@ -59,7 +59,18 @@ class TopController extends AppController
 
 		// PUTの場合はタスクを更新
 		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+			var_dump($this->data);
+			if (empty($this->data) || empty($this->data['message'])) {
+				return false;
+			}
+			$existd_todo = $this->Todo->find('first', array('conditions' => array('id' => $this->data['id'])));
 
+			if (empty($existd_todo)) {
+				return false;
+			} else {
+				$this->Todo->id = $existd_todo['Todo']['id'];
+				$this->Todo->save(array('message' => $this->data['message']));
+			}
 		}
 
 		// DELETEの場合はタスクを削除

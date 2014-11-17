@@ -12,11 +12,14 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
          // 非同期で呼び出されます。
      });
 
-     $scope.addHabbit = function() {
+     $scope.addTodo = function() {
           if ($scope.name !== '') {
-               $scope.todos.push({"message": $scope.name, "done": false, "isEdit": false});
+               var name = $scope.name;
+               $scope.name = '';
 
-               var parameter = {'message':$scope.name};
+               $scope.todos.push({"message": name, "done": false, "isEdit": false});
+
+               var parameter = {'message':name};
                $http({
                     method : 'POST',
                     url : '/top/todo',
@@ -43,6 +46,22 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
           if ($scope.todos[index].message !== '') {
                $scope.todos[index].label = $scope.todoMessage;
           }
+     };
+
+     $scope.updateTodo = function(index) {
+          var updateTodo = $scope.todos[index];
+          var parameter = {'id':updateTodo.id,'message':updateTodo.message};
+
+          $http({
+               method : 'PUT',
+               url : '/top/todo/',
+               headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+               data: $.param(parameter)
+          }).success(function(data, status, headers, config) {
+
+          }).error(function(data, status, headers, config) {
+               //失敗
+          });
      };
 
      $scope.deleteTodo = function(index) {
