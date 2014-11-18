@@ -1,3 +1,7 @@
-#addForm {
-	margin-bottom: 20px;
+#AddForm {
+	margin-bottom: 30px;
+}
+#HabbitListLoading {
+	text-align: center;
+	margin-bottom: 10px;
 }

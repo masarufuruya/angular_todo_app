@@ -2,17 +2,22 @@ var habbitApp = angular.module('HabbitApp', []);
 
 habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
 
-     $http({method: 'GET', url: '/top/todos'}).
-       success(function(data, status, headers, config) {
-         // レスポンスが有効の場合に、非同期で呼び出されるコールバックです。
-         $scope.todos = data;
-       }).
-       error(function(data, status, headers, config) {
+      // Todoリストローディング
+      $scope.isTodoListLoading = true;
+
+      $http({method: 'GET', url: '/top/todos'}).
+        success(function(data, status, headers, config) {
+          // レスポンスが有効の場合に、非同期で呼び出されるコールバックです。
+          $scope.todos = data;
+          $scope.isTodoListLoading = false;
+        }).
+        error(function(data, status, headers, config) {
          // エラーが発生、またはサーバからエラーステータスが返された場合に、
          // 非同期で呼び出されます。
-     });
+          $scope.isTodoListLoading = false;
+        });
 
-     $scope.addTodo = function() {
+      $scope.addTodo = function() {
           if ($scope.name !== '') {
                var name = $scope.name;
                $scope.name = '';
@@ -31,12 +36,12 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
                     //失敗
                });
           }
-     };
+      };
 
-     $scope.toCanEdit = function(index) {
+      $scope.toCanEdit = function(index) {
           $scope.todos[index].isEdit = true;
-     };
-     $scope.toNotEdit = function(index) {
+      };
+      $scope.toNotEdit = function(index) {
           // デフォルトだとmouseroverの処理が早いので、0.3秒遅延させる
           $timeout(function() {
                $scope.todos[index].isEdit = false;
@@ -46,9 +51,13 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
           if ($scope.todos[index].message !== '') {
                $scope.todos[index].label = $scope.todoMessage;
           }
-     };
+      };
 
-     $scope.updateTodo = function(index) {
+      $scope.toggleIsDone = function(index) {
+
+      }
+
+      $scope.updateTodo = function(index) {
           var updateTodo = $scope.todos[index];
           var parameter = {'id':updateTodo.id,'message':updateTodo.message};
 
@@ -62,9 +71,9 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
           }).error(function(data, status, headers, config) {
                //失敗
           });
-     };
+      };
 
-     $scope.deleteTodo = function(index) {
+      $scope.deleteTodo = function(index) {
 
           var deleteTodo = $scope.todos[index];
 
@@ -78,7 +87,7 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
           });
 
           $scope.todos.splice(index, 1);
-     };
+      };
 });
 
 
