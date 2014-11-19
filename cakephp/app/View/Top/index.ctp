@@ -8,8 +8,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <?php echo $this->Html->css('flat-ui.min'); ?>
     <?php echo $this->Html->css('habbit'); ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -19,10 +18,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
     <?php echo $this->Html->script('index'); ?>
     <?php echo $this->Html->script('moment'); ?>
   </head>
   <body ng-app="HabbitApp">
+      <div class="col-xs-12" style="padding:0px;margin-bottom:55px;">
+        <nav class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation" style="border-radius:0px;margin-bottom:5px;">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+              <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#">Habbit</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="https://www.facebook.com/masaru.furuya.1" target="_new">About Me</a></li>
+             </ul>
+          </div><!-- /.navbar-collapse -->
+        </nav><!-- /navbar -->
+      </div>
     <div class="container">
       <div ng-controller="HabbitListCtrl">
         <div id="AddForm" class="row">
@@ -59,7 +74,7 @@
                           <span ng-model="todo.label" ng-show="todo.isEdit == false">{{todo.message}}</span>
                           <input type="text" ng-blur="updateTodo($index)" ng-model="todo.message" ng-mouseleave="toNotEdit($index)" ng-show="todo.isEdit == true" class="form-control">
                         </td>
-                        <td class="col-sm-1">
+                        <td style="text-align:center;" class="col-sm-1">
                           <button class="btn btn-danger" ng-click="deleteTodo($index)">削除</button>
                         </td>
                     </tr>

@@ -1,26 +1,22 @@
-var habbitApp = angular.module('HabbitApp', []);
-
-habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
-
+angular.module('HabbitApp', [])
+  .controller('HabbitListCtrl', function ($scope, $timeout, $http, $filter) {
       // Todoリストローディング
       $scope.isTodoListLoading = true;
 
       $http({method: 'GET', url: '/top/todos'}).
-        success(function(data, status, headers, config) {
-          // 登録されている全タスク
-          $scope.allTodos = data.allTodos;
-          // 完了しているタスク
-          $scope.doneTodos = data.doneTodos;
-          $scope.isTodoListLoading = false;
-        }).
-        error(function(data, status, headers, config) {
-         // エラーが発生、またはサーバからエラーステータスが返された場合に、
-         // 非同期で呼び出されます。
-          $scope.isTodoListLoading = false;
-        });
+      success(function(data, status, headers, config) {
+        // 登録されている全タスク
+        $scope.allTodos = data.allTodos;
+        // 完了しているタスク
+        $scope.doneTodos = data.doneTodos;
+        $scope.isTodoListLoading = false;
+      }).
+      error(function(data, status, headers, config) {
+        $scope.isTodoListLoading = false;
+      });
 
       $scope.addTodo = function() {
-          if ($scope.name !== '') {
+          if ($scope.name !== '' && angular.isDefined($scope.name)) {
                var name = $scope.name;
                $scope.name = '';
 
@@ -77,10 +73,10 @@ habbitApp.controller('HabbitListCtrl', function ($scope, $timeout, $http) {
 
           // 一覧から削除
           $scope.allTodos.splice(index, 1);
-          // Todo: 現在時刻を取得するようにする
-          var currentDate = '2014-11-19';
+          // 今日の日付を取得
+          var currentDate = $filter('date')(new Date(), 'yyyy-M-d');
+          // 完了したタスクを今日のタスク一覧へ追加
           var doneTodo = $scope.doneTodos[currentDate];
-          // 今回完了したタスクを追加する
           doneTodo.push(toDoneTodo);
       }
 
