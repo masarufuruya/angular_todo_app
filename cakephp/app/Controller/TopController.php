@@ -16,13 +16,23 @@ class TopController extends AppController
 
 		// GETのみタスク一覧を返す
 		if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-			// DBからタスク一覧を取得してjsonで返す
-			$todo_list = $this->Todo->find('all');
 			$response = array();
-			foreach ($todo_list as $todo) {
+
+			// 現在登録されているタスクの一覧
+			$conditions = array('isDone' => 0);
+			$all_todos = $this->Todo->find('all', compact('conditions'));
+			$response['allTodos'] = array();
+			// ビューへ返す形式に整形
+			foreach ($all_todos as $todo) {
 				$todo['Todo']['isEdit'] = false;
-				array_push($response, $todo['Todo']);
+				array_push($response['allTodos'], $todo['Todo']);
 			}
+
+			// 完了タスク一覧
+			$done_todos = $this->Todo->find('all', array('conditions' => array('isDone' => 1)));
+			// 完了日付ごとのタスク一覧に分割して保存
+			$response['doneTodos'] = $this->Todo->divideTodoDoneDate($done_todos);
+
 			return json_encode($response);
 		} else {
 			return false;
@@ -59,15 +69,22 @@ class TopController extends AppController
 
 		// PUTの場合はタスクを更新
 		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-			var_dump($this->data);
-			if (empty($this->data) || empty($this->data['message'])) {
+			if (empty($this->data)) {
 				return false;
 			}
-			$existd_todo = $this->Todo->find('first', array('conditions' => array('id' => $this->data['id'])));
 
-			if (empty($existd_todo)) {
+			// 完了のステータスの更新処理の場合
+			if (!empty($this->data['isDone'])) {
+
+				$existd_todo = $this->Todo->find('first', array('conditions' => array('message' => $this->data['message'])));
+				$this->Todo->id = $existd_todo['Todo']['id'];
+				$this->Todo->save(array('done_date' => date('Y-m-d'), 'done_timestamp' => (int)microtime(true) * 1000, 'isDone' => 1));
 				return false;
-			} else {
+			}
+
+			// タスク内容の更新処理の場合
+			if (!empty($this->data['message'])) {
+				$existd_todo = $this->Todo->find('first', array('conditions' => array('id' => $this->data['id'])));
 				$this->Todo->id = $existd_todo['Todo']['id'];
 				$this->Todo->save(array('message' => $this->data['message']));
 			}

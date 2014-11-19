@@ -1,7 +1,33 @@
+#allTodo h2 {
+	margin-bottom: 15px;
+}
+
+#CompleteAlert {
+	padding: 10px;
+	margin-bottom: 0px;
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: bold;
+}
+
 #AddForm {
 	margin-bottom: 30px;
 }
 #HabbitListLoading {
 	text-align: center;
 	margin-bottom: 10px;
+}
+
+.table-bordered {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	border-collapse: separate;
+}
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
 }

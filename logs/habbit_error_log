@@ -1,0 +1,18 @@
+[Wed Nov 19 09:50:24 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /
+[Wed Nov 19 09:50:25 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 09:50:26 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /top
+[Wed Nov 19 09:50:26 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 09:50:33 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /top
+[Wed Nov 19 09:50:33 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 09:56:10 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /top
+[Wed Nov 19 09:56:11 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 09:56:12 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /top
+[Wed Nov 19 09:56:12 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 09:56:40 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /top
+[Wed Nov 19 09:56:41 2014] [crit] [client 127.0.0.1] configuration error:  couldn't perform authentication. AuthType not set!: /favicon.ico
+[Wed Nov 19 10:00:12 2014] [error] [client 127.0.0.1] PHP Warning:  mkdir(): Permission denied in /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Engine/FileEngine.php on line 380
+[Wed Nov 19 10:00:12 2014] [error] [client 127.0.0.1] PHP Warning:  _cake_core_ cache was unable to write 'cake_dev_en-us' to File cache in /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Cache.php on line 323
+[Wed Nov 19 10:00:12 2014] [error] [client 127.0.0.1] PHP Warning:  /Users/mfuruya/habbit/cakephp/app/tmp/cache/persistent/ is not writable in /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Engine/FileEngine.php on line 385
+[Wed Nov 19 10:00:12 2014] [error] [client 127.0.0.1] PHP Fatal error:  Uncaught exception 'CacheException' with message 'Cache engine _cake_core_ is not properly configured.' in /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Cache.php:181\nStack trace:\n#0 /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Cache.php(151): Cache::_buildEngine('_cake_core_')\n#1 /Users/mfuruya/habbit/cakephp/app/Config/core.php(374): Cache::config('_cake_core_', Array)\n#2 /Users/mfuruya/habbit/cakephp/lib/Cake/Core/Configure.php(72): include('/Users/mfuruya/...')\n#3 /Users/mfuruya/habbit/cakephp/lib/Cake/bootstrap.php(175): Configure::bootstrap(true)\n#4 /Users/mfuruya/habbit/cakephp/app/webroot/index.php(90): include('/Users/mfuruya/...')\n#5 {main}\n  thrown in /Users/mfuruya/habbit/cakephp/lib/Cake/Cache/Cache.php on line 181
+[Wed Nov 19 19:21:05 2014] [error] [client 127.0.0.1] PHP Fatal error:  Only variables can be passed by reference in /Users/mfuruya/habbit/cakephp/app/Model/Todo.php on line 15, referer: http://local.habbit/top/
+[Wed Nov 19 19:21:17 2014] [error] [client 127.0.0.1] PHP Fatal error:  Only variables can be passed by reference in /Users/mfuruya/habbit/cakephp/app/Model/Todo.php on line 15, referer: http://local.habbit/top/
