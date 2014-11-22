@@ -41,7 +41,7 @@
     <div class="container">
       <div ng-controller="HabbitListCtrl">
         <div id="AddForm" class="row">
-          <form ng-submit="addTodo()">
+          <form ng-submit="addTask()">
             <div id="AddInputBox" class="form-group">
               <div class="col-sm-11">
                 <input type="text"  ng-model="name" class="form-control" />
@@ -49,47 +49,47 @@
             </div>
           </form>
           <div class="col-sm-1">
-            <button ng-click="addTodo()" class="btn btn-primary">追加</button>
+            <button ng-click="addTask()" class="btn btn-primary">追加</button>
           </div>
         </div>
 
         <div id="HabbitList">
-          <div id="HabbitListLoading" ng-show="isTodoListLoading == true">
+          <div id="HabbitListLoading" ng-show="isTaskListLoading == true">
             <?php echo $this->Html->image('loading-circle.gif'); ?>
           </div>
-          <div id="HabbitListContent" ng-show="isTodoListLoading == false">
+          <div id="HabbitListContent" ng-show="isTaskListLoading == false">
             <!-- 登録されているタスク一覧 -->
-            <div id="allTodo">
+            <div id="allTask">
               <h2>登録されている習慣一覧</h2>
               <table class="table table-striped table-bordered">
-                    <div id="CompleteAlert" ng-show="allTodos.length == 0" class="alert alert-warning" role="alert">今日の習慣は全て達成しました！</div>
-                    <tr ng-show="allTodos.length > 0">
+                    <div id="CompleteAlert" ng-show="allTasks.length == 0" class="alert alert-warning" role="alert">今日の習慣は全て達成しました！</div>
+                    <tr ng-show="allTasks.length > 0">
                         <th>完了</th>
                         <th>習慣名</th>
                         <th></th>
                     </tr>
-                    <tr ng-show="allTodos.length > 0" ng-repeat="todo in allTodos">
-                        <td class="col-sm-1"><input type="checkbox" ng-click="toggleIsDone($index)" ng-model="todo.isDone" width="10px"></td>
+                    <tr ng-show="allTasks.length > 0" ng-repeat="task in allTasks">
+                        <td class="col-sm-1"><input type="checkbox" ng-click="toggleIsDone($index)" ng-model="task.isDone" width="10px"></td>
                         <td class="col-sm-10" ng-click="toCanEdit($index)">
-                          <span ng-model="todo.label" ng-show="todo.isEdit == false">{{todo.message}}</span>
-                          <input type="text" ng-blur="updateTodo($index)" ng-model="todo.message" ng-mouseleave="toNotEdit($index)" ng-show="todo.isEdit == true" class="form-control">
+                          <span ng-model="task.label" ng-show="task.isEdit == false">{{task.message}}</span>
+                          <input type="text" ng-blur="updateTask($index)" ng-model="task.message" ng-mouseleave="toNotEdit($index)" ng-show="task.isEdit == true" class="form-control">
                         </td>
                         <td style="text-align:center;" class="col-sm-1">
-                          <button class="btn btn-danger" ng-click="deleteTodo($index)">削除</button>
+                          <button class="btn btn-danger" ng-click="deleteTask($index)">削除</button>
                         </td>
                     </tr>
               </table>
             </div>
             <!-- 完了したタスク一覧 -->
-            <div class="done-todo" ng-repeat="doneTodo in doneTodos">
-                <h2>{{doneTodo[0].done_timestamp | date:'yyyy-MM-dd'}}に完了した習慣一覧</h2>
+            <div class="done-task" ng-repeat="doneTask in doneTasks">
+                <h2>{{doneTask[0].done_timestamp | date:'yyyy-MM-dd'}}に完了した習慣一覧</h2>
                 <table class="table table-striped table-bordered">
                   <tr>
                       <th>習慣名</th>
                   </tr>
-                  <tr ng-repeat="todo in doneTodo">
+                  <tr ng-repeat="task in doneTask">
                       <td class="col-sm-12">
-                        <span ng-model="doneTodo.label">{{todo.message}}</span>
+                        <span ng-model="doneTask.label">{{task.message}}</span>
                       </td>
                   </tr>
                 </table>              
